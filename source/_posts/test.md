@@ -2,8 +2,7 @@
 title: test
 tags: []
 id: '40'
-categories:
-  - - 未分类
+categories: diy
 date: 2020-03-16 21:01:01
 ---
 
