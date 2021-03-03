@@ -4,3 +4,5 @@
 
 推送至服务器：`yarn deploy`
 
+配置有更改：`yarn clean` 
+`yarn deploy` 
