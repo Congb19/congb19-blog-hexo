@@ -1,6 +1,7 @@
 ---
 title: Hello Hexo
 tag: testtag
+id: '273'
 ---
 
 2021.3.3 由于旧博客的一些bug，博客迁移至腾讯云新机，框架换为Hexo！
