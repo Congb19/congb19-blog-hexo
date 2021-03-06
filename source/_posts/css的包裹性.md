@@ -20,34 +20,32 @@ date: 2020-03-28 16:30:21
 
 想来确实如此，外部为inline内部为block，内部的内容应该超不出去。但是实际测试的时候却长了出去，文本没有换行：
 
-```
+```css
 .class2 {
-box-sizing: border-box;
-display: inline-block;
-width: 200px;
-height: 200px;
-padding: 20px;
-background-color: red;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  background-color: red;
 }
+```
+```html
 <div class="class2">
-<span>
-hellohellohellohellohellohellohellohellohellohellohellohello
-</span>
+  <span>
+    hellohellohellohellohellohellohellohellohellohellohellohello
+  </span>
 </div>
 ```
 
 ![](https://www.congb19.top/wordpress/wp-content/uploads/2020/03/QQ图片20200328162312.png)
 
-图1
-
 后来询问大佬得知，这是由于文本的内容是一段连续的英文字母的原因。只要换成中文或者带空格的英文单词，就能正常换行了。。
 
 ![](https://www.congb19.top/wordpress/wp-content/uploads/2020/03/QQ截图20200328162544.png)
 
-图1
-
 另外还有一种强制换行的办法，即给文本添加CSS3的word-wrap属性，可以达到英文文本强制换行的效果。语法：
 
-```
+```css
 word-wrap: normalbreak-word;
 ```

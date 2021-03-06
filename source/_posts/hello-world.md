@@ -1,6 +1,8 @@
 ---
 title: Hello Hexo
-tag: testtag
+tag: 
+  - testtag 
+  - testtag2
 id: '273'
 ---
 
