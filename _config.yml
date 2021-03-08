@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://159.75.85.197/
+url: https://blog.congb19.top/
 permalink: posts/:id/
 permalink_defaults:
   id: index
