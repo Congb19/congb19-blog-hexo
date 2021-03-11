@@ -1,5 +1,11 @@
 ## hexo blog
 
+---
+
+地址：https://blog.congb19.top/
+
+---
+
 本地运行：`yarn server`
 
 推送至服务器：`yarn deploy`
