@@ -64,3 +64,21 @@ class myStack {
     console.log(this.toString());
   }
 }
+Promise.resolve().then(function promise1() {
+  console.log('promise1');
+})
+setTimeout(function setTimeout1() {
+  console.log('setTimeout1')
+  Promise.resolve().then(function promise2() {
+    console.log('promise2');
+  })
+}, 0)
+
+setTimeout(function setTimeout2() {
+  console.log('setTimeout2')
+}, 0)
+
+作者：追风筝的人er
+链接：https://juejin.cn/post/6844903606466904078
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
