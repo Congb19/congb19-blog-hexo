@@ -9,6 +9,8 @@ date: 2021-03-03 17:57:44
 
 [xyy~](http://www.xuyuyan.cn/)
 
+[朱大佬!](https://www.zhuxingzhao.com/link)
+
 ---
 
 ### 我的其他站点~
