@@ -17,13 +17,15 @@ date: 2021-03-03 17:57:44
 
 [timber](https://blog.timber3252.me/)
 
+[hyh](https://ethanwong.me/)
+
 ---
 
 ### 我的其他站点~
 
-个人主站：[congb19-top](http://www.congb19.top/)（建设中（咕咕咕））
+个人主站：[congb19-top](http://www.congb19.com/)（建设中（咕咕咕））
 
-文档站：[congb19-docs](http://docs.congb19.top/)（填充中）
+文档站：[congb19-docs](http://docs.congb19.com/)（填充中）
 
 ---
 

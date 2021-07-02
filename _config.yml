@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://blog.congb19.top/
+url: https://blog.congb19.com/
 permalink: posts/:id/
 permalink_defaults:
   id: index
@@ -103,7 +103,13 @@ theme: concise
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+
+# deploy:
+#   type: git
+#   repo: git@159.75.85.197:/home/git/projects/hexo.git # ip 为服务器ip
+#   branch: master
+
 deploy:
   type: git
-  repo: git@159.75.85.197:/home/git/projects/hexo.git # ip 为服务器ip
-  branch: master
+  repo: git@github.com:Congb19/Congb19.github.io.git # ip 为服务器ip
+  branch: blog
