@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>同花顺一面回顾 | Congb19&#39;s Blog</title>
+    <meta name="author" content="Congb19" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="同花顺前端（期货）一面中，答得不好的点，做一下回顾记录。1. js 闭包、this 指向问题Js 的变量特点：在函数内部可以直接读取全局变量，在函数外部无法读取函数内的局部变量。不用 var 声明的变量就直是全局变量。闭包当时回答先解释了一下闭包的含义，然后说尽量少用闭包，因为会产生内存泄漏问题。说的不是很对回顾在外面想要读取局部变量时就可以用闭包。例子：1234567891011121314function f1() &amp;#123;  var n = 999;  nAdd = function " />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Congb19&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    #waifu {
+        z-index: 999 !important;
+    }
+    #waifu-toggle {
+        z-index: 999 !important;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Congb19&#39;s Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/dev">
+                <span class="nav-text">开发</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/diy">
+                <span class="nav-text">DIY</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/int">
+                <span class="nav-text">面经</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+
+
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://blog.congb19.com"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-js-%E9%97%AD%E5%8C%85%E3%80%81this-%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">1. js 闭包、this 指向问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">2. 箭头函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-js-%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99"><span class="toc-number">3.</span> <span class="toc-text">3. js 隐式类型转换规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-js-%E5%AE%9E%E7%8E%B0%E6%A0%88%E7%BB%93%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">4. js 实现栈结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-react-%E5%92%8C-vue-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">5. react 和 vue 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">6.</span> <span class="toc-text">6. 前端性能优化</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            同花顺一面回顾
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://blog.congb19.com/posts/288/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2021-03-09T07:27:38.000Z" itemprop="datePublished">2021-03-09</time>
+</a>
+
+            
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p><a href="../posts/274/">同花顺前端（期货）一面</a>中，<br>答得不好的点，做一下回顾记录。</p>
+<hr>
+<h3 id="1-js-闭包、this-指向问题"><a href="#1-js-闭包、this-指向问题" class="headerlink" title="1. js 闭包、this 指向问题"></a>1. js 闭包、this 指向问题</h3><p>Js 的变量特点：在函数内部可以直接读取全局变量，在函数外部无法读取函数内的局部变量。<br>不用 var 声明的变量就直是全局变量。</p>
+<span id="more"></span>
+
+<ul>
+<li><p>闭包</p>
+<ul>
+<li><p>当时回答<br>先解释了一下闭包的含义，然后说尽量少用闭包，因为会产生内存泄漏问题。说的不是很对</p>
+</li>
+<li><p>回顾<br>在外面想要读取局部变量时就可以用闭包。</p>
+</li>
+<li><p>例子：</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = <span class="number">999</span>;</span><br><span class="line">  nAdd = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    n += <span class="number">1</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(n);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> f2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result = f1();</span><br><span class="line">result(); <span class="comment">// 999</span></span><br><span class="line">nAdd(); <span class="comment">//这个nAdd是全局函数</span></span><br><span class="line">result(); <span class="comment">// 1000</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解释</p>
+<ul>
+<li>第二个 result 的值成功被更新为 1000，说明 n 一直在内存中没有被销毁。这是因为，<code>f1()</code> 执行完了以后 f1 本该销毁了，但是 f2 被赋予了一个全局变量 result，所以 f2 没有销毁，由于 f2 还对 f1 的变量 n 有引用，所以 f1 也不能销毁。这可能会导致内存泄漏的问题。</li>
+<li>其次，nAdd 的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以 nAdd 相当于是一个 f1 的 setter，可以在 f1 函数外部对 f1 函数内部的局部变量 n 进行操作。</li>
+</ul>
+</li>
+<li><p>闭包使用的注意点</p>
+<ul>
+<li>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在 IE 中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</li>
+<li>闭包会在父函数外部，改变父函数内部变量的值。所以，如果把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
+</ul>
+</li>
+<li><p>总结<br>闭包就是<strong>携带状态的函数</strong>，并且它的状态可以完全对外隐藏起来。在没有 class 机制，只有函数的语言里，借助闭包，就可以<strong>封装一个私有变量</strong>。<br>类<code>class</code>是<strong>有行为的数据</strong>，闭包是<strong>有数据的行为</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>this 指向<br>问的是箭头函数和普通函数的区别，只答了一个 this 指向不同。指向哪里忘了，还乱答的。</p>
+<ul>
+<li><p>回顾</p>
+<ul>
+<li>this 永远指向一个<strong>对象</strong>；</li>
+<li>this 的指向完全取决于<strong>函数调用的位置</strong>；</li>
+</ul>
+</li>
+</ul>
+<p>因此，不管在什么地方使用 this，它必然会指向某个对象。在 Js 中，一切皆对象，运行环境也是对象，所以函数都是在某个对象下运行。</p>
+<ul>
+<li>普通函数<br>普通函数里，this 指向其<strong>调用时所在的对象</strong>。一般有四种情况</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line">test();  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>↑ 解释：全局性调用，因此 this 就代表全局对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">x</span>:<span class="number">1</span> &#125;;</span><br><span class="line">obj.m = test;</span><br><span class="line">obj.m(); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>↑ 解释：obj 来调用 test，因此 this 就指向 obj。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> test();</span><br><span class="line">x  <span class="comment">// 2</span></span><br><span class="line">obj.x <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>↑ 解释：test 作为构造函数，因此 this 就指向 test 的实例 obj。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">　<span class="built_in">console</span>.log(<span class="built_in">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">x</span>:<span class="number">1</span> &#125;;</span><br><span class="line">obj.m = test;</span><br><span class="line">obj.m.apply() <span class="comment">// 0</span></span><br><span class="line">obj.m.apply(obj); <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+
+<p>↑ 解释：apply()的作用是改变函数的调用对象。它的第一个参数就表示改变后的调用这个函数的对象，为空时，默认为全局对象。</p>
+<ul>
+<li>箭头函数<br>箭头函数体内的 this 对象，就是<strong>定义时所在的对象</strong>，而不是使用时所在的对象。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line">test();  <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">x</span>:<span class="number">2</span> &#125;;</span><br><span class="line">test.apply(obj);  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>↑ 解释：test 在全局里定义，this 就指向了全局。使用 apply 切换调用对象，this 指向仍为全局。</p>
+</li>
+</ul>
+<hr>
+<h3 id="2-箭头函数"><a href="#2-箭头函数" class="headerlink" title="2. 箭头函数"></a>2. 箭头函数</h3><p>问的是箭头函数和普通函数的区别，只答了一个 this 指向不同。指向哪里忘了，还乱答的。<br>箭头函数最重要的区别确实是 this 指向的区别，在上一节已作详细回顾。</p>
+<p>箭头函数一共有如下这些特点。</p>
+<ul>
+<li>函数体内的 this 对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li><strong>不可以当作构造函数</strong>，也就是说，不可以使用 new 命令，否则会抛出一个错误。</li>
+<li><strong>不可以使用 arguments 对象</strong>，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</li>
+<li>不可以使用 yield 命令，因此箭头函数<strong>不能用作 Generator 函数</strong>。</li>
+</ul>
+<p>箭头函数的好处：使得函数表达更加简洁，可以简化回调函数。由于 this 指向固定，所以可以防止 this 指向因为调用环境的不同而变乱。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正常函数写法</span></span><br><span class="line"><span class="keyword">var</span> result = values.sort(<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a - b;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 箭头函数写法</span></span><br><span class="line"><span class="keyword">var</span> result = values.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br><span class="line"></span><br><span class="line"><span class="comment">//与rest参数结合示例</span></span><br><span class="line"><span class="keyword">const</span> numbers = <span class="function">(<span class="params">...nums</span>) =&gt;</span> nums;</span><br><span class="line">numbers(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment">// [1,2,3,4,5]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-js-隐式类型转换规则"><a href="#3-js-隐式类型转换规则" class="headerlink" title="3. js 隐式类型转换规则"></a>3. js 隐式类型转换规则</h3><ul>
+<li>加法运算符 + 是双目运算符，只要其中一个是 String 类型，表达式的值便是一个 String。</li>
+<li>对于其他的四则运算，只有其中一个是 Number 类型，表达式的值便是一个 Number。</li>
+<li>对于非法字符的情况通常会返回 NaN。</li>
+<li>判断语句中的判断条件需要是 Boolean 类型，所以条件表达式会被隐式转换为 Boolean。 其转换规则同 Boolean 的构造函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> + <span class="string">&#x27;3&#x27;</span> <span class="comment">// &#x27;23&#x27;</span></span><br><span class="line"><span class="number">3</span> - <span class="string">&#x27;2&#x27;</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">1</span> * <span class="string">&#x27;2&#x27;</span> <span class="comment">// 2</span></span><br><span class="line"><span class="number">1</span> * <span class="string">&#x27;a&#x27;</span> <span class="comment">// NaN，因为parseInt(a)值为NaN</span></span><br><span class="line"><span class="string">&#x27;1&#x27;</span> * <span class="string">&#x27;a&#x27;</span> <span class="comment">// NaN</span></span><br><span class="line"><span class="keyword">if</span>(&#123;&#125;) &#123;</span><br><span class="line">  dosomething... <span class="comment">//成功执行，&#123;&#125;默认转换为true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体转换表格参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/angle-xiu/p/14184474.html%EF%BC%8C">https://www.cnblogs.com/angle-xiu/p/14184474.html，</a><br>作者： angle-xiu</p>
+<h3 id="4-js-实现栈结构"><a href="#4-js-实现栈结构" class="headerlink" title="4. js 实现栈结构"></a>4. js 实现栈结构</h3><p>问的是栈和队列的区别，分别举例。笔试里有一题是用 js 实现栈，只想起了 push 和 pop。</p>
+<p>面试官说我写的太简单了，应该是指实现的方法不够多。<br>如果不用 js 数组自带的方法，当作 C++的数组来看，可能会更好</p>
+<p>栈（stack）是常用的一种二维线性结构，特点是后进先出（LIFO）。JS 的数组结构自带了一些栈的方法。</p>
+<p>重新实现，新增了一些栈可能会用到的其他方法，新增了 length 属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myStack</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.items = [];</span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">push</span>(<span class="params">element</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.length++;</span><br><span class="line">    <span class="comment">// this.items.push(element);</span></span><br><span class="line">    <span class="built_in">this</span>.items[<span class="built_in">this</span>.length] = element;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">pop</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.length &gt; <span class="number">0</span>) <span class="built_in">this</span>.length--;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// return this.items.pop();</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.items.peek();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">peek</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.items[<span class="built_in">this</span>.length - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">isEmpty</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !<span class="built_in">this</span>.length;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">size</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.length;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">clear</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">this</span>.items = [];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">toString</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="built_in">this</span>.items.length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> sign = i === <span class="built_in">this</span>.items.length - <span class="number">1</span> ? <span class="string">&#x27;&#x27;</span> : <span class="string">&#x27;,&#x27;</span>;</span><br><span class="line">      result += <span class="built_in">this</span>.items[i] + sign</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">print</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.toString());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-react-和-vue-的区别"><a href="#5-react-和-vue-的区别" class="headerlink" title="5. react 和 vue 的区别"></a>5. react 和 vue 的区别</h3><p>当时回答说了一个代码风格的区别，react 用 jsx，css 也嵌入，是 all-in-js；vue 用模板语法，偏向原生一些。</p>
+<p>主要区别还有 diff 算法的区别、数据绑定的区别（可以说一下 vue 双向绑定原理，react 单向数据流，这里不细说）、设计思想的区别等。细说一下 vdom 和 diff。</p>
+<ul>
+<li><p>vdom<br>浏览器渲染引擎工作流程都差不多，大致分为 5 步，创建 DOM 树——创建 StyleRules——创建 Render 树——布局 Layout——绘制 Painting。<br>Web 界面由 DOM 树来构建，当其中一部分发生变化时，其实就是对应某个 DOM 节点发生了变化，虚拟 DOM 就是为了<strong>解决浏览器性能问题</strong>而被设计出来的。若一次操作中有 10 次更新 DOM 的动作，虚拟 DOM 不会立即操作 DOM，而是将这 10 次更新的 diff 内容保存到本地一个 JS 对象中，最终将这个 JS 对象一次性附加到 DOM 树上，再进行后续操作，避免大量无谓的计算量。<br>用 JS 对象模拟 DOM 节点的好处是，页面的更新可以先全部反映在 JS 对象(虚拟 DOM)上，<strong>操作内存中的 JS 对象的速度显然要更快</strong>，等更新完成后，再将最终的 JS 对象映射成真实的 DOM，交由浏览器去绘制。<br>一个 dom 节点主要包含三个部分：</p>
+<ol>
+<li>自身的标签名（例如 div，p，等）</li>
+<li>自身的属性（attr）（例如 id=’app’）</li>
+<li>子节点（如果没有一个完整子节点，值就是它的 value（或者叫 innerHTML））</li>
+</ol>
+<p>那么一个虚拟节点可以这么设计，整体为树形结构：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vnode = &#123;</span><br><span class="line">  tag:<span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">  attrs:&#123;<span class="attr">id</span>:<span class="string">&#x27;app&#x27;</span>&#125;,</span><br><span class="line">  children:[</span><br><span class="line">    &#123;</span><br><span class="line">      tag:<span class="string">&#x27;p&#x27;</span>,</span><br><span class="line">      attrs:&#123;<span class="attr">id</span>:<span class="string">&#x27;child&#x27;</span>&#125;,</span><br><span class="line">      children:[<span class="string">&#x27;1&#x27;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际的 vnode 还包含其他很多属性。来自vue源码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">VNode</span> </span>&#123;</span><br><span class="line">  tag: <span class="built_in">string</span> | <span class="built_in">void</span>;</span><br><span class="line">  data: VNodeData | <span class="built_in">void</span>;</span><br><span class="line">  children: ?<span class="built_in">Array</span>&lt;VNode&gt;;</span><br><span class="line">  text: <span class="built_in">string</span> | <span class="built_in">void</span>;</span><br><span class="line">  elm: Node | <span class="built_in">void</span>;</span><br><span class="line">  ns: <span class="built_in">string</span> | <span class="built_in">void</span>;</span><br><span class="line">  context: Component | <span class="built_in">void</span>; <span class="comment">// rendered in this component&#x27;s scope</span></span><br><span class="line">  key: <span class="built_in">string</span> | <span class="built_in">number</span> | <span class="built_in">void</span>;</span><br><span class="line">  componentOptions: VNodeComponentOptions | <span class="built_in">void</span>;</span><br><span class="line">  componentInstance: Component | <span class="built_in">void</span>; <span class="comment">// component instance</span></span><br><span class="line">  parent: VNode | <span class="built_in">void</span>; <span class="comment">// component placeholder node</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// strictly internal</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>diff 算法<br>diff 算法的<strong>本质是找出两个对象之间的差异，目的是尽可能复用节点</strong>。<br>改变一个节点的时候，我们其实主要改了以下部分</p>
+<ol>
+<li>自身的属性（style 、class 等等）</li>
+<li>子节点</li>
+</ol>
+<p>diff 算法所作的就是提供一个性能还算不错更新策略，通过 diff 算法可以得到 diff 算法结果数据表(需要进行哪些操作记录表)。原本要操作的 DOM 还是要操作的。vue 使用了 js 的<strong>DOMfragment</strong>来操作 dom（统一计算出所有变化后统一更新一次 DOM）进行浏览器 DOM 一次性更新。</p>
+<blockquote>
+<p>react 和 vue 的 diff 算法区别：</p>
+</blockquote>
+<ul>
+<li><p>vue2.0 的 diff</p>
+<ol>
+<li>构建虚拟 dom 树</li>
+<li>将内存中虚拟 dom 树渲染成真实 dom 结构</li>
+<li>数据改变的时候，<strong>将之前的虚拟 dom 树结合新的数据生成新的虚拟 dom 树</strong></li>
+<li>将此次生成好的虚拟 dom 树和上一次的虚拟 dom 树进行一次比对（diff 算法进行比对），来<strong>更新只需要被替换的 DOM，而不是全部重绘</strong>。在 Diff 算法中，只<strong>平层的比较前后两棵 DOM 树的节点，没有进行深度的遍历</strong>。</li>
+<li>将对比出来的差异进行重新渲染</li>
+</ol>
+</li>
+<li><p>react 的 diff</p>
+<ol>
+<li>DOM 结构发生改变—–直接卸载并重新 create</li>
+<li>DOM 结构一样—–不会卸载,但是会 update 变化的内容</li>
+<li>所有同一层级的子节点.他们都可以通过 key 来区分—–同时遵循 1.2 两点（其实这个 key 的存在与否只会影响 diff 算法的复杂度,换言之,你不加 key 的情况下,diff 算法就会以暴力的方式去根据一二的策略更新,但是你加了 key,diff 算法会引入一些另外的操作）</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>React 会逐个对节点进行更新，转换到目标节点。而最后插入新的节点，涉及到的 DOM 操作非常多。diff 总共就是移动、删除、增加三个操作，而如果给每个节点唯一的标识（key），那么 React 优先采用移动的方式，能够找到正确的位置去插入新的节点。<br>vue 会跟踪每一个组件的依赖关系，不需要重新渲染整个组件树。而对于 React 而言，每当应用的状态被改变时，全部组件都会重新渲染，所以 react 中会需要 shouldComponentUpdate 这个生命周期函数方法来进行控制。</p>
+</blockquote>
+<p>作者：视觉派 Pie<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/301860721/answer/815280420">https://www.zhihu.com/question/301860721/answer/815280420</a></p>
+<p><strong>此处我没有读过源码，还需验证</strong></p>
+</li>
+</ul>
+<h3 id="6-前端性能优化"><a href="#6-前端性能优化" class="headerlink" title="6. 前端性能优化"></a>6. 前端性能优化</h3><p>网络，</p>
+<p>渲染流程，</p>
+<p>js，CSS，</p>
+<p>React vue，</p>
+<p>webview，</p>
+<p>webpack打包优化</p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/posts/274/" class="article-next" title="同花顺前端（期货）一面"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/posts/290/" class="article-prev" title="大华一面、恒生一面"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "f3817e07eae90545d157",
+        clientSecret: "888152dacd98ceca06ea33f8cc3ce625d26b5c44",
+        repo: "congb19-blog",
+        owner: "Congb19",
+        admin: ["Congb19"],
+        id: "6884aaf11063433ec6410eb55392f661",
+        distractionFreeMode: true,
+        title: "同花顺一面回顾",
+        body: "https://blog.congb19.com/posts/288/",
+        labels: []
+    }).render('comments');
+    </script>
+</div>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    <!-- 备案号 -->
+    <!-- <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备xxxx号</a> -->
+    <!-- <br/> -->
+    Congb19's site. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/gh/Congb19/live2d-widget@latest/autoload.js"></script>
+</html>

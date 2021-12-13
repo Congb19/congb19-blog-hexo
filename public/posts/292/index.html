@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>大华恒生一面回顾 | Congb19&#39;s Blog</title>
+    <meta name="author" content="Congb19" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="大华一面、恒生一面中，答得不好的点，做一下回顾记录。1. Event LoopJS 运行在浏览器中是单线程的，但是浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，会创建事件并放入执行队列中。浏览器中很多异步行为都是由浏览器新开一个线程去完成，一个浏览器至少实现三个常驻线程：JS 引擎线程、GUI 渲染线程、事件触发线程。JS 引擎JavaScript 引擎是一个专门处理 JavaScript 脚本的虚拟机，一般会附带在网页浏览器之中，比如最" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Congb19&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    #waifu {
+        z-index: 999 !important;
+    }
+    #waifu-toggle {
+        z-index: 999 !important;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Congb19&#39;s Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/dev">
+                <span class="nav-text">开发</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/diy">
+                <span class="nav-text">DIY</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/int">
+                <span class="nav-text">面经</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+
+
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://blog.congb19.com"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Event-Loop"><span class="toc-number">1.</span> <span class="toc-text">1. Event Loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-vue-watch%E3%80%81computed"><span class="toc-number">2.</span> <span class="toc-text">2. vue-watch、computed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-vue3-0"><span class="toc-number">3.</span> <span class="toc-text">3. vue3.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-vue-router-%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">4. vue-router 原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1"><span class="toc-number">4.1.</span> <span class="toc-text">前端路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vue-router-%E5%8E%9F%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">vue-router 原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vue-router-%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.</span> <span class="toc-text">vue-router 传参方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-vite-%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.</span> <span class="toc-text">5. vite 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%A1%B9%E7%9B%AE%E4%BA%AE%E7%82%B9%E5%92%8C%E9%9A%BE%E7%82%B9%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">6.</span> <span class="toc-text">6. 项目亮点和难点的思路</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            大华恒生一面回顾
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://blog.congb19.com/posts/292/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2021-03-14T09:32:59.000Z" itemprop="datePublished">2021-03-14</time>
+</a>
+
+            
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p><a href="../posts/290/">大华一面、恒生一面</a>中，<br>答得不好的点，做一下回顾记录。</p>
+<hr>
+<h3 id="1-Event-Loop"><a href="#1-Event-Loop" class="headerlink" title="1. Event Loop"></a>1. Event Loop</h3><span id="more"></span>
+
+<p>JS 运行在浏览器中是单线程的，但是浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，会创建事件并放入执行队列中。浏览器中很多异步行为都是由浏览器新开一个线程去完成，一个浏览器至少实现三个常驻线程：JS 引擎线程、GUI 渲染线程、事件触发线程。</p>
+<ul>
+<li><p>JS 引擎<br>JavaScript 引擎是一个专门处理 JavaScript 脚本的虚拟机，一般会附带在网页浏览器之中，比如最出名的就是 Chrome 浏览器的 V8 引擎，如下图所示，JS 引擎主要有两个组件构成：</p>
+<ul>
+<li>堆-内存分配发生的地方</li>
+<li>栈-函数调用时会形一个个栈帧（frame）</li>
+</ul>
+</li>
+<li><p>执行栈<br>JS 引擎中，每一个<strong>函数</strong>执行的时候，都会生成新的 execution context（执行上下文），执行上下文会包含一些当前函数的参数、局部变量之类的信息，它会被推入栈中，<strong>running execution context（正在执行的上下文）始终处于栈的顶部</strong>。当函数<strong>执行完后，它的执行上下文会从栈弹出</strong>。</p>
+</li>
+<li><p>Event Loop<br>指的就是一个程序结构，用于等待和发送消息和事件。（a programming construct that waits for and dispatches events or messages in a program.）简单说，就是在程序中设置两个线程：一个负责程序本身的运行，称为”主线程”；另一个负责主线程与其他进程（主要是各种 I/O 操作）的通信，被称为”Event Loop 线程”（可以译为”消息线程”）。</p>
+</li>
+</ul>
+<p>事件循环的过程可以简单描述为：</p>
+<ol>
+<li>函数入栈，当栈中执行到异步任务的时候，就将他丢给 WebAPIs,接着执行同步任务,直到栈为空；</li>
+<li>在此期间 WebAPIs 完成这个事件，把回调函数放入 CallbackQueue 中等待；</li>
+<li>当执行栈为空时，Event Loop 把 Callback Queue 中的一个任务放入栈中，回到第 1 步。</li>
+</ol>
+<p>注意点：</p>
+<ol>
+<li>Event Loop 是由 javascript 宿主环境（像浏览器）来实现的;</li>
+<li>WebAPIs 是由 C++实现的浏览器创建的线程，处理诸如 DOM 事件、http 请求、定时器等异步事件;</li>
+<li>JavaScript 的并发模型基于”事件循环”;</li>
+<li>Callback Queue(Event Queue 或者 Message Queue) 任务队列，存放异步任务的回调函数</li>
+</ol>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span> <span class="title">promise1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">setTimeout1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout1&#x27;</span>)</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span> <span class="title">promise2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">setTimeout2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout2&#x27;</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<ol>
+<li>执行 loop1：<strong>微任务</strong>：无；<strong>宏任务</strong>：执行 script（整体），promise1()加入 loop2 的微任务，setTimeout1()加入 loop2 的宏任务，setTimeout2 加入 loop2 的宏任务；</li>
+<li>执行 loop2：<strong>微任务</strong>：执行 promise1()，输出’promise1’；<strong>宏任务</strong>：执行 setTimeout1()，输出’setTimeout1’，promise2()加入 loop3 的微任务，执行 setTimeout2()，输出’setTimeout2’；</li>
+<li>执行 loop3：<strong>微任务</strong>：执行 promise2()，输出’promise2’；<strong>宏任务</strong>：无。<br>输出为：<br>promise1<br>setTimeout1<br>setTimeout2<br>promise2</li>
+</ol>
+<blockquote>
+<p>回答：在代码执行的时候，通过将不同函数的执行上下文压入执行栈中，来保证代码的有序执行。在执行同步代码的时候，如果遇到了异步事件，JS 引擎并不会一直等待其返回结果，而是会将这个事件挂起，继续执行执行栈中的其他任务。当异步事件执行完毕后，再将异步事件对应的回调加入到下一次事件循环的对应队列中 去等待执行。<br>任务可以分为宏任务和微任务，<strong>当当前执行栈中的事件执行完毕后，js 引擎会进入下一轮事件循环，先判断微任务队列中是否有任务可以执行，如果有就将微任务队首的事件压入栈中执行。当微任务队列中的任务都执行完成后，再去执行宏任务队列中的任务</strong>。</p>
+</blockquote>
+<h3 id="2-vue-watch、computed"><a href="#2-vue-watch、computed" class="headerlink" title="2. vue-watch、computed"></a>2. vue-watch、computed</h3><ol>
+<li>computed 是<strong>计算一个新的属性，并将该属性挂载到 Vue 实例上</strong>，而 watch 是<strong>监听已经存在且已挂载到 Vue 实例上的数据</strong>，所以用 watch 同样可以监听 computed 计算属性的变化。</li>
+<li>computed 本质是一个惰性求值的观察者，具有缓存性，<strong>只有当依赖变化后，第一次访问 computed 属性，才会计算新的值</strong>。而 <strong>watch 则是当数据发生变化便会调用执行函数</strong>。</li>
+<li>从使用场景上说，<strong>computed 适用一个数据被多个数据影响，而 watch 适用一个数据影响多个数据</strong>。</li>
+</ol>
+<h3 id="3-vue3-0"><a href="#3-vue3-0" class="headerlink" title="3. vue3.0"></a>3. vue3.0</h3><ul>
+<li>特点</li>
+</ul>
+<ol>
+<li>向下兼容，支持大多数 Vue2 的特性。可以拿 Vue2 的语法开发 Vue3。</li>
+<li>性能的提升，打包大小减少 41%，初次渲染快 55%，更新快 133%，内存使用减少 54%。</li>
+<li>新推出的<strong>组合式 API（Composition API）</strong>。在 Vue2 中遇到的问题就是复杂组件的代码变的非常麻烦。Composition API 解决了这个问题，它是一系列 API 的合集。见<a target="_blank" rel="noopener" href="https://v3.cn.vuejs.org/api/composition-api.html">https://v3.cn.vuejs.org/api/composition-api.html</a></li>
+<li>其他新特性：Teleport(瞬移组件)、Suspense(解决异步加载组件问题)和全局 API 的修改和优化。</li>
+<li><strong>更好的 TypeScript 支持</strong></li>
+</ol>
+<ul>
+<li><p>组合式 API</p>
+<ul>
+<li>例子：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- ref声明的数据 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; readersNumber &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;changeReadersNumber&quot;</span>&gt;</span>改变1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- reactive声明的数据 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; people.girl &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;people.changeGirls&quot;</span>&gt;</span>改变2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 使用了toRefs API的reactive数据 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; girl &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;changeGirls&quot;</span>&gt;</span>改变3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">	<span class="keyword">import</span> &#123; ref, reactive &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">		<span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">			<span class="comment">// ref</span></span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> readersNumber = ref(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">			<span class="comment">// method</span></span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> changeReadersNumber = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">				girl.value = <span class="string">&#x27;2&#x27;</span>; <span class="comment">//必须加.value</span></span></span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line"><span class="javascript">			<span class="comment">// reactive</span></span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> people = reactive(&#123;</span></span><br><span class="line"><span class="javascript">				girl: <span class="string">&#x27;女孩&#x27;</span>,</span></span><br><span class="line"><span class="javascript">				changeGirls: <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">					people.girl = <span class="string">&#x27;男孩&#x27;</span>;</span></span><br><span class="line">				&#125;,</span><br><span class="line">			&#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">			<span class="keyword">return</span> &#123;</span></span><br><span class="line">				readersNumber,</span><br><span class="line">				people,</span><br><span class="line">				...toRefs(people),</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>vue2 中声明的变量需要放在 data 中声明使用。而 vue3 中通过 ref 声明变量，并且在 setup 函数中返回出去才可以在页面上使用。vue3 中通过 ref 声明的变量在赋值的时候需要通过变量.value 去进行赋值和读取操作，有点麻烦。通过 reactive 声明变量配合 toRefs API 可以完美解决，见上例。</li>
+<li>vue2 中修改 data 中的变量需要在 methods 中定义方法。然后通过事件触发修改变量。vue3 事件方法不在需要声明在 methods 中了。而是直接写在 setup 函数中或者 reactive 中就可以了。</li>
+</ol>
+<ul>
+<li>其他：<ul>
+<li>Provide/Inject API，可以解决父组件到深层子组件层层传参的麻烦；</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-vue-router-原理"><a href="#4-vue-router-原理" class="headerlink" title="4. vue-router 原理"></a>4. vue-router 原理</h3><h4 id="前端路由"><a href="#前端路由" class="headerlink" title="前端路由"></a>前端路由</h4><p>参考<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903890278694919">https://juejin.cn/post/6844903890278694919</a></p>
+<p>现代前端项目多为单页应用（SPA），在单页应用中，路由是其中的重要环节。一旦页面加载完成，SPA 不会因为用户的操作而进行页面的重新加载或跳转。 取而代之的是利用 JS 动态的变换 HTML 的内容，从而来模拟多个视图间跳转。</p>
+<p>但由于页面本身的 url 并没有变化，导致了两个问题：</p>
+<ol>
+<li>SPA 无法记住用户的操作记录，无论是刷新、前进还是后退，都无法展示用户真实的期望内容。</li>
+<li>SPA 中虽然由于业务的不同会有多种页面展示形式，但只有一个 url，对 SEO 不友好，不方便搜索引擎进行收录。</li>
+</ol>
+<p>于是就有了前端路由。</p>
+<ul>
+<li><p>hash 模式</p>
+<p>hash 就是指 url 后的 # 号以及后面的字符。比如说 “<a target="_blank" rel="noopener" href="http://www.baidu.com/#hashhash&quot;">www.baidu.com/#hashhash&quot;</a> ，其中 “#hashhash” 就是我们期望的 hash 值。</p>
+<p>hash 值的变化<strong>不会导致浏览器像服务器发送请求，而且 hash 的改变会触发 hashchange 事件，浏览器的前进后退也能对其进行控制</strong>，所以在 H5 的 history 模式出现之前，基本都是使用 hash 模式来实现前端路由。</p>
+<p>使用了 window.addEventListener 监听 hashchange 事件。</p>
+</li>
+<li><p>history 模式</p>
+<p>采用 html5 history 对象的 pushState 等方法来实现。由于 history.pushState() 和 history.replaceState() 可以改变 url 同时，不会刷新页面，所以在 HTML5 中的 histroy 具备了实现前端路由的能力。</p>
+<p>但是这不会触发什么事件，所以无法监听。因此对于单页应用的 history 模式而言，url 的改变只能由下面四种方式引起：</p>
+<ol>
+<li>点击浏览器的前进或后退按钮</li>
+<li>点击 a 标签</li>
+<li>在 JS 代码中触发 history.pushState 函数</li>
+<li>在 JS 代码中触发 history.replaceState 函数</li>
+</ol>
+</li>
+</ul>
+<p>侦测到改变后，就利用 JS 渲染对应的内容。</p>
+<p>每个现代前端框架都有与之对应的路由实现，例如 vue-router、react-router 等。</p>
+<h4 id="vue-router-原理"><a href="#vue-router-原理" class="headerlink" title="vue-router 原理"></a>vue-router 原理</h4><p>vue-router 有三种模式，”hash” | “history” | “abstract”，其中浏览器环境默认为 hash，Node.js 环境默认为 abstract。</p>
+<ul>
+<li><p>基本原理</p>
+<p>$router 的 push 和 replace 是手动调用内部路径切换方法 transitionTo，go、back、forward 方法实际调用的是 window.history.go()，以及浏览器的前进后退会触发相应的监听事件，然后调用 transitionTo，之后更新路由，触发<router-view>  的重新渲染。</p>
+<ol>
+<li>hash 模式是优先监听 popstate 事件,不行就降级为 hashchange 事件，history 模式监听 popstate 事件；</li>
+<li>history.pushState()和 history.replaceState()修改浏览器历史栈后 url 改变但不会刷新页面，不会触发 popstate 事件；</li>
+<li>window.location.hash = ‘#/b’修改 hash 不会刷新页面，会触发 hashchange 事件，hash 的改变会自动添加到浏览器历史记录中；</li>
+</ol>
+</li>
+<li><p>执行过程</p>
+<ol>
+<li>点击 router-link 或执行$router.push()</li>
+<li>调用 this.history.push，不同模式下该函数的实现略有不同，以下以 hash 模式为例，<br>先执行 this.transitionTo 做路径切换，在切换完成的回调函数中，执行 pushHash 函数；</li>
+<li>pushHash 优先用 pushState ，不行就降级为 window.location.hash = path<br>pushState 会调用浏览器原生的 history 的 pushState 接口或者 replaceState 接口，更新浏览器的 url 地址，并把当前 url 压入历史栈中。</li>
+<li>updateRoute ，更新 this.apps 保存的组件实例的 _route 值</li>
+<li>重新渲染组件，通过 Vue.mixin()方法，全局注册一个混合，影响注册之后所有创建的每个 Vue 实例，该混合在 beforeCreate 钩子中通过 Vue.util.defineReactive()定义了响应式的_route 属性。所谓响应式属性，即当_route 值改变时，会自动调用 Vue 实例的 render()方法，更新视图。</li>
+</ol>
+</li>
+</ul>
+<h4 id="vue-router-传参方式"><a href="#vue-router-传参方式" class="headerlink" title="vue-router 传参方式"></a>vue-router 传参方式</h4><p>两种方式：query、params+动态路由传参。</p>
+<ul>
+<li>url 展现方式：<br>query 传参：/detail?id=1&amp;user=123&amp;identity=1&amp;更多参数<br>params 传参＋动态路由：/detail/123</li>
+</ul>
+<p>params 动态路由传参，一定要在路由中定义参数，然后在路由跳转的时候必须要加上参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  path: <span class="string">&#x27;/detail/:id&#x27;</span>,      <span class="comment">//就是这个 /:id</span></span><br><span class="line">  name: <span class="string">&#x27;Detail&#x27;</span>,</span><br><span class="line">  component: Detail</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-vite-介绍"><a href="#5-vite-介绍" class="headerlink" title="5. vite 介绍"></a>5. vite 介绍</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6902225969604460558">https://juejin.cn/post/6902225969604460558</a></p>
+<h3 id="6-项目亮点和难点的思路"><a href="#6-项目亮点和难点的思路" class="headerlink" title="6. 项目亮点和难点的思路"></a>6. 项目亮点和难点的思路</h3><blockquote>
+<p>博哥：服务端渲染是一个，也可以讲讲一些常用的优化，比如说图片懒加载，代码分割，然后搜索的防抖节流，然后 webpack 包体积优化，webpack 的开发体验优化<br>比如说你可能知道最新的一个脚手架叫 vites,但是呢这个问题明显就是跟这个无关，你就可以在回答 webpack 的时候提一嘴 vites 就解决 webpack 的什么什么问题。</p>
+</blockquote>
+<p>个人感觉也可以说亮点不多，但是经过回顾以后发现了很多写的不好的点。感觉可以优化的点<br>同时问到难点也可以说这些。</p>
+<p>例如，</p>
+<ol>
+<li>迎新项目里，没有做<strong>缓存</strong>，用户可能忘记了或者没截图，进来就要再输入一遍身份证或学号。<br>可以考虑增加缓存，第一次成功的查询可以生成一个 token，把它存到 localstorage 里，同一用户如果第二次进来就不需要再次输入了。</li>
+<li>迎新项目里，用户输完以后，点查询的时候可能手抖或网太慢多点了很多下，这里可以做<strong>防抖节流</strong>。</li>
+<li>AR 识图项目里，没有使用<strong>状态管理</strong>，传参都是通过 props 进行一个参数的传。可以将全局的一些数据存在全局的 store 里，例如识别的结果对象（包括类型、名称、在图中的位置）就是一个比较全局的数据。这样不管哪一级的组件都可以直接取它的数据，不需要从外层传进去。<br>//或者如果用 vue3.0 重构的话，（如果不涉及子组件向父组件传）也可以考虑使用 Provide/Inject API 来传。</li>
+<li>AR 识图项目里，没有使用Hooks。组件结构其实不复杂，使用hooks API的话可以减少一些代码量。</li>
+<li>（⭐难点）AR 识图交互里，人工智能训练好的模型体积非常大，放在服务器上请求速度很慢。直接请求模型文件的话，会导致几十兆的模型每次识别都要传输，然后在客户端这边运行出结果。当时没有想到怎么解决。<br>如果重构的话，解决方案可能是得做一个后端服务器，把模型在后端服务器上放好，前后端只传输请求和结果，模型在后端跑，不需要传输。</li>
+<li>两个项目异步请求都是裸写在代码中。最好可以进行封装。</li>
+<li>啊</li>
+</ol>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/posts/290/" class="article-next" title="大华一面、恒生一面"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/posts/273/" class="article-prev" title="Hello Hexo"><i class="icon-arrow-left"></i></a>
+
+
+
+<div class="comments">
+    <div id="comments"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+    new Gitalk({
+        clientID: "f3817e07eae90545d157",
+        clientSecret: "888152dacd98ceca06ea33f8cc3ce625d26b5c44",
+        repo: "congb19-blog",
+        owner: "Congb19",
+        admin: ["Congb19"],
+        id: "3b7a9567d52641520d8089fe13f520ad",
+        distractionFreeMode: true,
+        title: "大华恒生一面回顾",
+        body: "https://blog.congb19.com/posts/292/",
+        labels: []
+    }).render('comments');
+    </script>
+</div>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    <!-- 备案号 -->
+    <!-- <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备xxxx号</a> -->
+    <!-- <br/> -->
+    Congb19's site. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/gh/Congb19/live2d-widget@latest/autoload.js"></script>
+</html>
